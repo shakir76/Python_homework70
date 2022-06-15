@@ -25,6 +25,4 @@ def create_article(request):
             "content": request.POST.get("content"),
             "user": user
         }
-
-
         return render(request, "article_view.html", context)
