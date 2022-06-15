@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        {% for field_name, field_value in user.items %}
+            {% if field_name == "name" %}
+                <p><i>{{ field_value }}</i></p>
+            {% else %}
+                <p>{{ field_value }}</p>
+            {% endif %}
+        {% endfor %}
+        <p>
+            {{ title }}
+        </p>
+        <p>
+            {{ author }}
+        </p>
+        <p>
+            {{ content }}
+        </p>
+</body>
+</html>
