@@ -11,7 +11,11 @@
     <link rel="stylesheet" href="{% static "css/style.css" %}">
 </head>
 <body>
-        <h1>{{ name }}</h1>
-        <p>{{ test }}</p>vsdvds
+        <a href="articles/add/">Создание статьи</a>
+        <h1>Статьи</h1>
+        {% for article in articles %}
+            <h3>{{ article.title }}</h3>
+            <p><a href="#">Подробнее</a></p>
+        {% endfor %}
 </body>
 </html>
