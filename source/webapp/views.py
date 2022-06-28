@@ -4,6 +4,7 @@ from django.urls import reverse
 
 # Create your views here.
 from webapp.models import Article
+from webapp.validate import article_validate
 
 
 def index_view(request):
@@ -22,10 +23,16 @@ def create_article(request):
     if request.method == "GET":
         return render(request, "create.html")
     else:
+
         title = request.POST.get("title")
         author = request.POST.get("author")
         content = request.POST.get("content")
-        new_article = Article.objects.create(title=title, author=author, content=content)
+        new_article = Article(title=title, author=author, content=content)
+        errors = article_validate(title, author, content)
+        if errors:
+            return render(request, "create.html", {"errors": errors, "article": new_article})
+        new_article.save()
+        # new_article = Article.objects.create(title=title, author=author, content=content)
         return redirect("article_view", pk=new_article.pk)
 
 
@@ -37,6 +44,9 @@ def update_article(request, pk):
         article.title = request.POST.get("title")
         article.author = request.POST.get("author")
         article.content = request.POST.get("content")
+        errors = article_validate(article.title, article.author, article.content)
+        if errors:
+            return render(request, "update.html", {"article": article, "errors": errors})
         article.save()
         return redirect("article_view", pk=article.pk)
 

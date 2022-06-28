@@ -1,9 +1,26 @@
 {% csrf_token %}
 <label>Title:</label><br/>
-<input type="text" name="title" value="{{ article.title }}"/><br/>
-<label>Text:</label><br/>
-<textarea name="content">{{ article.content }}</textarea><br/>
+{% if not errors.title %}
+    <input type="text" name="title" value="{{ article.title }}"/><br/>
+{% else %}
+    <input class="border border-danger border-4" type="text" name="title" value="{{ article.title }}"/><br/>
+    <p class="text-danger">{{ errors.title }}</p>
+{% endif %}
+
+<label>Content:</label><br/>
+{% if not errors.content %}
+    <textarea name="content">{{ article.content }}</textarea><br/>
+{% else %}
+    <textarea class="border border-danger border-4" name="content">{{ article.content }}</textarea><br/>
+    <p class="text-danger">{{ errors.content }}</p>
+{% endif %}
+
 <label>Author:</label><br/>
-<input type="text" name="author" value="{{ article.author }}"/><br/>
+{% if not errors.author %}
+    <input type="text" name="author" value="{{ article.author }}"/><br/>
+{% else %}
+    <input class="border border-danger border-4" type="text" name="author" value="{{ article.author }}"/><br/>
+    <p class="text-danger">{{ errors.author }}</p>
+{% endif %}
 <br/>
 <input type="submit" value="{{ button_text }}"/>
