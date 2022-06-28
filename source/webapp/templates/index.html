@@ -7,9 +7,17 @@
 {% endblock %}
 {% block content %}
     <h1>Статьи</h1>
-    {% for article in articles %}
-        <h3>{{ article.title }}</h3>
-        <p><a href="{% url "article_view" article.pk %}">Подробнее</a></p>
-    {% endfor %}
+    <div class="row">
+        {% for article in articles %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ article.title }}</h5>
+                        <a href="{% url "article_view" article.pk %}" class="card-link">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}
 
