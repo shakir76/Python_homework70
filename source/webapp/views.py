@@ -8,6 +8,7 @@ from django.views import View
 from webapp.forms import ArticleForm
 from webapp.models import Article
 from webapp.validate import article_validate
+from django.views.generic import TemplateView, RedirectView
 
 
 class IndexView(View):
@@ -17,10 +18,22 @@ class IndexView(View):
         return render(request, "index.html", context)
 
 
-def article_view(request, **kwargs):
-    pk = kwargs.get("pk")
-    article = get_object_or_404(Article, pk=pk)
-    return render(request, "article_view.html", {"article": article})
+class MyRedirectView(RedirectView):
+    url = "https://www.google.ru/"
+
+
+class ArticleView(TemplateView):
+    template_name = "article_view.html"
+
+    # extra_context = {"test": "test"}
+    # def get_template_names(self):
+    #     return "article_view.html"
+
+    def get_context_data(self, **kwargs):
+        pk = kwargs.get("pk")
+        article = get_object_or_404(Article, pk=pk)
+        kwargs["article"] = article
+        return super().get_context_data(**kwargs)
 
 
 def create_article(request):
