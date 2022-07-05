@@ -3,15 +3,18 @@ from django.http import HttpResponseRedirect, HttpResponseNotFound, Http404
 from django.urls import reverse
 
 # Create your views here.
+from django.views import View
+
 from webapp.forms import ArticleForm
 from webapp.models import Article
 from webapp.validate import article_validate
 
 
-def index_view(request):
-    articles = Article.objects.order_by("-updated_at")
-    context = {"articles": articles}
-    return render(request, "index.html", context)
+class IndexView(View):
+    def get(self, request, *args, **kwargs):
+        articles = Article.objects.order_by("-updated_at")
+        context = {"articles": articles}
+        return render(request, "index.html", context)
 
 
 def article_view(request, **kwargs):

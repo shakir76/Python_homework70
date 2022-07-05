@@ -24,6 +24,12 @@
     <p>
         {{ article.content }}
     </p>
+    <h3>Комментарии</h3>
+    {% for comment in article.comments.all %}
+            <p>{{ comment.text }}</p>
+    {% empty %}
+        <p>Комментариев нет</p>
+    {% endfor %}
     <a href="{% url "index" %}">На главную</a>
 
     <div class="modal fade" id="articleDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
