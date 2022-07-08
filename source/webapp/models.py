@@ -14,6 +14,11 @@ class Article(BaseModel):
     title = models.CharField(max_length=50, null=False, blank=False, verbose_name="Заголовок")
     author = models.CharField(max_length=50, verbose_name="Автор", default="Unknown")
     content = models.TextField(max_length=3000, verbose_name="Контент")
+    tags = models.ManyToManyField("webapp.Tag",
+                                  related_name="articles",
+                                  through="webapp.ArticleTag",
+                                  through_fields=("article", "tag"),
+                                  blank=True)
 
     def __str__(self):
         return f"{self.id}. {self.title}: {self.author}"
@@ -37,3 +42,27 @@ class Comment(BaseModel):
         db_table = "comments"
         verbose_name = "Комментарий"
         verbose_name_plural = "Комментарии"
+
+
+class Tag(BaseModel):
+    name = models.CharField(max_length=31, verbose_name='Тег')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        db_table = "tags"
+        verbose_name = "Тэг"
+        verbose_name_plural = "Тэги"
+
+
+class ArticleTag(models.Model):
+    article = models.ForeignKey("webapp.Article",
+                                related_name="article_tags",
+                                on_delete=models.CASCADE,
+                                verbose_name='Статья')
+    tag = models.ForeignKey("webapp.Tag",
+                            related_name="tag_articles",
+                            on_delete=models.CASCADE,
+                            verbose_name='Тэг')
+
