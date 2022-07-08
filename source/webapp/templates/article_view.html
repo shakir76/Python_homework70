@@ -30,6 +30,12 @@
     {% empty %}
         <p>Комментариев нет</p>
     {% endfor %}
+    <h3>Теги</h3>
+    {% for tag in article.tags.all %}
+            <p>{{ tag.name }}</p>
+    {% empty %}
+        <p>Тэгов нет</p>
+    {% endfor %}
     <a href="{% url "index" %}">На главную</a>
 
     <div class="modal fade" id="articleDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"

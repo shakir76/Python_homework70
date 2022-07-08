@@ -43,10 +43,12 @@ def create_article(request):
     else:
         form = ArticleForm(data=request.POST)
         if form.is_valid():
+            tags = form.cleaned_data.pop("tags")
             title = form.cleaned_data.get("title")
             author = form.cleaned_data.get("author")
             content = form.cleaned_data.get("content")
             new_article = Article.objects.create(title=title, author=author, content=content)
+            new_article.tags.set(tags)
             return redirect("article_view", pk=new_article.pk)
         return render(request, "create.html", {"form": form})
 
@@ -57,12 +59,14 @@ def update_article(request, pk):
         form = ArticleForm(initial={
             "title": article.title,
             "author": article.author,
-            "content": article.content
+            "content": article.content,
+            "tags": article.tags.all()
         })
         return render(request, "update.html", {"form": form})
     else:
         form = ArticleForm(data=request.POST)
         if form.is_valid():
+            article.tags.set(form.cleaned_data.pop("tags"))
             article.title = form.cleaned_data.get("title")
             article.author = form.cleaned_data.get("author")
             article.content = form.cleaned_data.get("content")
