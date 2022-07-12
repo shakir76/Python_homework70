@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from webapp.models import Article
+from webapp.models import Article, Tag
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -12,5 +12,5 @@ class ArticleAdmin(admin.ModelAdmin):
     fields = ['title', 'author', 'content', 'created_at', 'updated_at']
     readonly_fields = ['created_at', 'updated_at']
 
-
+admin.site.register(Tag)
 admin.site.register(Article, ArticleAdmin)
