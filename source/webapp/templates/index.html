@@ -6,6 +6,7 @@
     </li>
 {% endblock %}
 {% block content %}
+    {% include "partial/search.html" %}
     <h1>Статьи</h1>
     <div class="row">
         {% for article in articles %}
@@ -18,8 +19,10 @@
                 </div>
             </div>
         {% empty %}
-
         {% endfor %}
+    {% if is_paginated %}
+        {% include "partial/pagination.html" %}
+    {% endif %}
     </div>
 {% endblock %}
 

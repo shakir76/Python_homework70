@@ -1,21 +1,50 @@
+from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponseNotFound, Http404
 from django.urls import reverse
 
 # Create your views here.
+from django.utils.http import urlencode
 from django.views import View
 
-from webapp.base_view import FormView as CustomFormView
-from webapp.forms import ArticleForm
+from webapp.base_view import FormView as CustomFormView, ListView as CustomListView
+from webapp.forms import ArticleForm, SearchForm
 from webapp.models import Article
-from django.views.generic import TemplateView, RedirectView, FormView
+from django.views.generic import TemplateView, RedirectView, FormView, ListView
 
 
-class IndexView(View):
+class IndexView(ListView):
+    model = Article
+    template_name = "index.html"
+    context_object_name = "articles"
+    ordering = "-updated_at"
+    paginate_by = 2
+
     def get(self, request, *args, **kwargs):
-        articles = Article.objects.order_by("-updated_at")
-        context = {"articles": articles}
-        return render(request, "index.html", context)
+        self.form = self.get_search_form()
+        self.search_value = self.get_search_value()
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        if self.search_value:
+            return Article.objects.filter(Q(author__icontains=self.search_value) | Q(title__icontains=self.search_value))
+        return Article.objects.all()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context["form"] = self.form
+        if self.search_value:
+            query = urlencode({'search': self.search_value})  # search=dcsdvsdvsd
+            context['query'] = query
+            context['search'] = self.search_value
+        return context
+
+    def get_search_form(self):
+        return SearchForm(self.request.GET)
+
+    def get_search_value(self):
+        if self.form.is_valid():
+            return self.form.cleaned_data.get("search")
 
 
 class MyRedirectView(RedirectView):
@@ -85,8 +114,6 @@ class UpdateArticle(FormView):
 
     def get_object(self):
         return get_object_or_404(Article, pk=self.kwargs.get("pk"))
-
-
 
 
 def delete_article(request, pk):
