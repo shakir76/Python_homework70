@@ -15,7 +15,7 @@ from django.views.generic import TemplateView, RedirectView, FormView, ListView
 
 class IndexView(ListView):
     model = Article
-    template_name = "index.html"
+    template_name = "articles/index.html"
     context_object_name = "articles"
     ordering = "-updated_at"
     paginate_by = 2
@@ -52,7 +52,7 @@ class MyRedirectView(RedirectView):
 
 
 class ArticleView(TemplateView):
-    template_name = "article_view.html"
+    template_name = "articles/article_view.html"
 
     # extra_context = {"test": "test"}
     # def get_template_names(self):
@@ -67,7 +67,7 @@ class ArticleView(TemplateView):
 
 class CreateArticle(CustomFormView):
     form_class = ArticleForm
-    template_name = "create.html"
+    template_name = "articles/create.html"
 
     def form_valid(self, form):
         # tags = form.cleaned_data.pop("tags")
@@ -82,7 +82,7 @@ class CreateArticle(CustomFormView):
 
 class UpdateArticle(FormView):
     form_class = ArticleForm
-    template_name = "update.html"
+    template_name = "articles/update.html"
 
     def dispatch(self, request, *args, **kwargs):
         self.article = self.get_object()

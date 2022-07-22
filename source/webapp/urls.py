@@ -1,7 +1,7 @@
 from django.urls import path
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import RedirectView
 
-from webapp.views import IndexView, CreateArticle, ArticleView, UpdateArticle, delete_article, MyRedirectView
+from webapp.views import IndexView, CreateArticle, ArticleView, UpdateArticle, delete_article
 
 urlpatterns = [
     path('', IndexView.as_view(), name="index"),
