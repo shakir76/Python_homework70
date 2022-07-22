@@ -1,7 +1,8 @@
 from django.db import models
 
-
 # Create your models here.
+from django.urls import reverse
+
 from webapp.validate import validate_title
 
 
@@ -22,6 +23,12 @@ class Article(BaseModel):
 
     def __str__(self):
         return f"{self.id}. {self.title}: {self.author}"
+
+    def get_absolute_url(self):
+        return reverse("article_view", kwargs={"pk": self.pk})
+
+    def upper(self):
+        return self.title.upper()
 
     class Meta:
         db_table = "articles"

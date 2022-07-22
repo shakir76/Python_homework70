@@ -8,7 +8,7 @@ from django.utils.http import urlencode
 from webapp.views.base_view import FormView as CustomFormView
 from webapp.forms import ArticleForm, SearchForm
 from webapp.models import Article
-from django.views.generic import TemplateView, RedirectView, FormView, ListView, DetailView
+from django.views.generic import TemplateView, RedirectView, FormView, ListView, DetailView, CreateView
 
 
 class IndexView(ListView):
@@ -60,19 +60,9 @@ class ArticleView(DetailView):
         return context
 
 
-class CreateArticle(CustomFormView):
+class CreateArticle(CreateView):
     form_class = ArticleForm
     template_name = "articles/create.html"
-
-    def form_valid(self, form):
-        # tags = form.cleaned_data.pop("tags")
-        # self.article = Article.objects.create(**form.cleaned_data)
-        # self.article.tags.set(tags)
-        self.article = form.save()
-        return super().form_valid(form)
-
-    def get_redirect_url(self):
-        return redirect("article_view", pk=self.article.pk)
 
 
 class UpdateArticle(FormView):
