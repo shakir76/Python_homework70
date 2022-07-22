@@ -1,16 +1,14 @@
 from django.db.models import Q
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseNotFound, Http404
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse
 
 # Create your views here.
 from django.utils.http import urlencode
-from django.views import View
 
-from webapp.base_view import FormView as CustomFormView, ListView as CustomListView
+from webapp.views.base_view import FormView as CustomFormView
 from webapp.forms import ArticleForm, SearchForm
 from webapp.models import Article
-from django.views.generic import TemplateView, RedirectView, FormView, ListView
+from django.views.generic import TemplateView, RedirectView, FormView, ListView, DetailView
 
 
 class IndexView(ListView):
@@ -27,7 +25,8 @@ class IndexView(ListView):
 
     def get_queryset(self):
         if self.search_value:
-            return Article.objects.filter(Q(author__icontains=self.search_value) | Q(title__icontains=self.search_value))
+            return Article.objects.filter(
+                Q(author__icontains=self.search_value) | Q(title__icontains=self.search_value))
         return Article.objects.all()
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -51,18 +50,14 @@ class MyRedirectView(RedirectView):
     url = "https://www.google.ru/"
 
 
-class ArticleView(TemplateView):
+class ArticleView(DetailView):
     template_name = "articles/article_view.html"
-
-    # extra_context = {"test": "test"}
-    # def get_template_names(self):
-    #     return "article_view.html"
+    model = Article
 
     def get_context_data(self, **kwargs):
-        pk = kwargs.get("pk")
-        article = get_object_or_404(Article, pk=pk)
-        kwargs["article"] = article
-        return super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
+        context['comments'] = self.object.comments.order_by("-created_at")
+        return context
 
 
 class CreateArticle(CustomFormView):

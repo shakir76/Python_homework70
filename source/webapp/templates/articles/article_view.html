@@ -25,7 +25,7 @@
         {{ article.content }}
     </p>
     <h3>Комментарии</h3>
-    {% for comment in article.comments.all %}
+    {% for comment in comments %}
             <p>{{ comment.text }}</p>
     {% empty %}
         <p>Комментариев нет</p>
