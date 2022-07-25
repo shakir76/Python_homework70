@@ -64,6 +64,12 @@ class CreateArticle(CreateView):
     form_class = ArticleForm
     template_name = "articles/create.html"
 
+    def form_valid(self, form):
+        article = form.save(commit=False)
+        article.save()
+        form.save_m2m()
+        return redirect("article_view", pk=article.pk)
+
 
 class UpdateArticle(FormView):
     form_class = ArticleForm
