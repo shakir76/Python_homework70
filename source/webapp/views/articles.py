@@ -6,7 +6,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils.http import urlencode
 
 from webapp.views.base_view import FormView as CustomFormView
-from webapp.forms import ArticleForm, SearchForm
+from webapp.forms import ArticleForm, SearchForm, ArticleDeleteForm, UserArticleForm
 from webapp.models import Article
 from django.views.generic import TemplateView, RedirectView, FormView, ListView, DetailView, CreateView, UpdateView, \
     DeleteView
@@ -77,9 +77,21 @@ class UpdateArticle(UpdateView):
     template_name = "articles/update.html"
     model = Article
 
+    def get_form_class(self):
+        if self.request.GET.get("is_admin"):
+            return ArticleForm
+        return UserArticleForm
+
 
 class DeleteArticle(DeleteView):
     model = Article
     template_name = "articles/delete.html"
     success_url = reverse_lazy('index')
+    form_class = ArticleDeleteForm
 
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(data=request.POST, instance=self.get_object())
+        if form.is_valid():
+            return self.delete(request, *args, **kwargs)
+        else:
+            return self.get(request, *args, **kwargs)

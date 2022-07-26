@@ -2,11 +2,11 @@
 {% block title %}Удаление статьи{% endblock %}
 
 {% block content %}
-<form action="" method="post">
-{% csrf_token %}
-    <h2>Вы уверены что хотите удалить статью {{ article.title }}?</h2>
-    <button type="submit">Да</button>
-</form>
-    <a href="{% url "article_view" article.pk %}">Нет</a>
+    <h2>Введите название статьи ({{ article.title }}) для удаления</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% include "partial/form.html" with button_text="Удалить" %}
+    </form>
+    <a href="{% url "article_view" article.pk %}">Назад</a>
 {% endblock %}
 

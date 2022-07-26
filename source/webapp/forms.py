@@ -4,6 +4,12 @@ from django.forms import widgets
 from webapp.models import Article, Comment
 
 
+class UserArticleForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ["title"]
+
+
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
@@ -27,3 +33,15 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ["text", "author"]
+
+
+class ArticleDeleteForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = ["title"]
+
+    def clean_title(self):
+        title = self.cleaned_data.get("title")
+        if self.instance.title != title:
+            raise ValidationError("Названия не совпадают")
+        return title
