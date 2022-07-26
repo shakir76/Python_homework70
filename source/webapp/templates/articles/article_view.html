@@ -31,6 +31,7 @@
     <h3>Комментарии</h3>
     {% for comment in comments %}
             <p>{{ comment.text }}</p>
+        <a href="{% url "update_comment" comment.pk %}">Изменить</a>
     {% empty %}
         <p>Комментариев нет</p>
     {% endfor %}

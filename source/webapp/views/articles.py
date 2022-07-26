@@ -8,7 +8,7 @@ from django.utils.http import urlencode
 from webapp.views.base_view import FormView as CustomFormView
 from webapp.forms import ArticleForm, SearchForm
 from webapp.models import Article
-from django.views.generic import TemplateView, RedirectView, FormView, ListView, DetailView, CreateView
+from django.views.generic import TemplateView, RedirectView, FormView, ListView, DetailView, CreateView, UpdateView
 
 
 class IndexView(ListView):
@@ -71,40 +71,10 @@ class CreateArticle(CreateView):
         return redirect("article_view", pk=article.pk)
 
 
-class UpdateArticle(FormView):
+class UpdateArticle(UpdateView):
     form_class = ArticleForm
     template_name = "articles/update.html"
-
-    def dispatch(self, request, *args, **kwargs):
-        self.article = self.get_object()
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_success_url(self):
-        return reverse("article_view", kwargs={"pk": self.article.pk})
-
-    # def get_initial(self):
-    #     initial = {}
-    #     for key in 'title', 'content', 'author':
-    #         initial[key] = getattr(self.article, key)
-    #     initial['tags'] = self.article.tags.all()
-    #     return initial
-    def get_form_kwargs(self):
-        form_kwargs = super().get_form_kwargs()
-        form_kwargs['instance'] = self.article
-        return form_kwargs
-
-    def form_valid(self, form):
-        # tags = form.cleaned_data.pop('tags')
-        # Article.objects.filter(pk=self.article.pk).update(**form.cleaned_data)
-        # for key, value in form.cleaned_data.items():
-        #     setattr(self.article, key, value)
-        # self.article.save()
-        # self.article.tags.set(tags)
-        self.article = form.save()
-        return super().form_valid(form)
-
-    def get_object(self):
-        return get_object_or_404(Article, pk=self.kwargs.get("pk"))
+    model = Article
 
 
 def delete_article(request, pk):

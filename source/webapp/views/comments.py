@@ -1,9 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 
 from webapp.forms import CommentForm
-from webapp.models import Article
+from webapp.models import Article, Comment
 
 
 class CreateCommentView(CreateView):
@@ -16,15 +16,14 @@ class CreateCommentView(CreateView):
         print(form.instance)
         return super().form_valid(form)
 
+    def get_success_url(self):
+        return reverse("article_view", kwargs={"pk": self.object.article.pk})
 
-    # def form_valid(self, form):
-    #     article = get_object_or_404(Article, pk=self.kwargs.get("pk"))
-    #     comment = form.save(commit=False)
-    #
-    #     comment.article = article
-    #     comment.save()
-    #     form.save_m2m()
-    #     return redirect("article_view", pk=article.pk)
+
+class UpdateComment(UpdateView):
+    form_class = CommentForm
+    template_name = "comments/update.html"
+    model = Comment
 
     def get_success_url(self):
         return reverse("article_view", kwargs={"pk": self.object.article.pk})
