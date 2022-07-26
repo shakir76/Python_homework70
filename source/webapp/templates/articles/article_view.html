@@ -11,9 +11,7 @@
     </li>
 
     <li class="nav-item">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#articleDeleteModal">
-            Удалить
-        </button>
+        <a class="nav-link" href="{% url "delete_article" article.pk %}">Удалить</a>
     </li>
 {% endblock %}
 
@@ -32,6 +30,7 @@
     {% for comment in comments %}
             <p>{{ comment.text }}</p>
         <a href="{% url "update_comment" comment.pk %}">Изменить</a>
+        <a href="{% url "delete_comment" comment.pk %}">Удалить</a>
     {% empty %}
         <p>Комментариев нет</p>
     {% endfor %}

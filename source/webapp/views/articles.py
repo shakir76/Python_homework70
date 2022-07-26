@@ -1,6 +1,6 @@
 from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 # Create your views here.
 from django.utils.http import urlencode
@@ -8,7 +8,8 @@ from django.utils.http import urlencode
 from webapp.views.base_view import FormView as CustomFormView
 from webapp.forms import ArticleForm, SearchForm
 from webapp.models import Article
-from django.views.generic import TemplateView, RedirectView, FormView, ListView, DetailView, CreateView, UpdateView
+from django.views.generic import TemplateView, RedirectView, FormView, ListView, DetailView, CreateView, UpdateView, \
+    DeleteView
 
 
 class IndexView(ListView):
@@ -77,11 +78,8 @@ class UpdateArticle(UpdateView):
     model = Article
 
 
-def delete_article(request, pk):
-    article = get_object_or_404(Article, pk=pk)
-    if request.method == "GET":
-        pass
-    #     return render(request, "delete.html", {"article": article})
-    else:
-        article.delete()
-        return redirect("index")
+class DeleteArticle(DeleteView):
+    model = Article
+    template_name = "articles/delete.html"
+    success_url = reverse_lazy('index')
+
