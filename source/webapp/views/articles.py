@@ -1,15 +1,13 @@
 from django.db.models import Q
-from django.shortcuts import redirect, get_object_or_404
-from django.urls import reverse, reverse_lazy
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 
 # Create your views here.
 from django.utils.http import urlencode
 
-from webapp.views.base_view import FormView as CustomFormView
 from webapp.forms import ArticleForm, SearchForm, ArticleDeleteForm, UserArticleForm
 from webapp.models import Article
-from django.views.generic import TemplateView, RedirectView, FormView, ListView, DetailView, CreateView, UpdateView, \
-    DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 
 class IndexView(ListView):
@@ -17,7 +15,7 @@ class IndexView(ListView):
     template_name = "articles/index.html"
     context_object_name = "articles"
     ordering = "-updated_at"
-    paginate_by = 2
+    paginate_by = 5
 
     def get(self, request, *args, **kwargs):
         self.form = self.get_search_form()
@@ -45,10 +43,6 @@ class IndexView(ListView):
     def get_search_value(self):
         if self.form.is_valid():
             return self.form.cleaned_data.get("search")
-
-
-class MyRedirectView(RedirectView):
-    url = "https://www.google.ru/"
 
 
 class ArticleView(DetailView):
