@@ -1,9 +1,9 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 
 # Create your views here.\
-
 def login_view(request):
     context = {}
     if request.method == 'POST':
@@ -16,3 +16,8 @@ def login_view(request):
         else:
             context['has_error'] = True
     return render(request, 'login.html', context=context)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('webapp:index')

@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -55,15 +56,14 @@ class ArticleView(DetailView):
         return context
 
 
-class CreateArticle(CreateView):
+class CreateArticle(LoginRequiredMixin, CreateView):
     form_class = ArticleForm
     template_name = "articles/create.html"
 
-    def form_valid(self, form):
-        article = form.save(commit=False)
-        article.save()
-        form.save_m2m()
-        return redirect("webapp:article_view", pk=article.pk)
+    # def dispatch(self, request, *args, **kwargs):
+    #     if request.user.is_authenticated:
+    #         return super().dispatch(request, *args, **kwargs)
+    #     return redirect("accounts:login")
 
 
 class UpdateArticle(UpdateView):
