@@ -16,27 +16,31 @@
 {% endblock %}
 
 {% block content %}
-    <div class="card">
+    <div class="card mt-3">
         <div class="card-body text-center">
             <h5 class="card-title">{{ article.upper }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">Автор: {{ article.author }}</h6>
             <p class="card-text">{{ article.content }}</p>
         </div>
     </div>
-    <h3>Комментарии</h3>
-    {% for comment in comments %}
-        <div class="card mb-3" style="width: 18rem;">
-            <h5 class="card-title ps-3">{{ comment.text }}</h5>
-            <div class="card-body">
-                <div class="btn-group mb-3" role="group" aria-label="Basic mixed styles example">
-                    <a class="btn btn-danger" href="{% url "update_comment" comment.pk %}">Изменить</a>
-                    <a class="btn btn-warning" href="{% url "delete_comment" comment.pk %}">Удалить</a>
+    <h3 class="my-3 text-center">Комментарии</h3>
+    <div class="row">
+        {% for comment in comments %}
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <p class="card-text">{{ comment.text }}</p>
+                    </div>
+                    <div class="btn-group w-100" role="group" aria-label="Basic mixed styles example">
+                        <a class="btn btn-danger" href="{% url "update_comment" comment.pk %}">Изменить</a>
+                        <a class="btn btn-warning" href="{% url "delete_comment" comment.pk %}">Удалить</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    {% empty %}
-        <p>Комментариев нет</p>
-    {% endfor %}
+        {% empty %}
+            <p>Комментариев нет</p>
+        {% endfor %}
+    </div>
     <h3>Теги</h3>
     {% for tag in article.tags.all %}
         <p>{{ tag.name }}</p>
