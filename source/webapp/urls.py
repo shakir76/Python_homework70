@@ -4,6 +4,8 @@ from django.views.generic import RedirectView
 from webapp.views import IndexView, CreateArticle, ArticleView, UpdateArticle, DeleteArticle, CreateCommentView, \
     UpdateComment, DeleteComment
 
+app_name = "webapp"
+
 urlpatterns = [
     path('', IndexView.as_view(), name="index"),
     path('articles/', RedirectView.as_view(pattern_name="index")),

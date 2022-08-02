@@ -17,7 +17,7 @@ class CreateCommentView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse("article_view", kwargs={"pk": self.object.article.pk})
+        return reverse("webapp:article_view", kwargs={"pk": self.object.article.pk})
 
 
 class UpdateComment(UpdateView):
@@ -26,7 +26,7 @@ class UpdateComment(UpdateView):
     model = Comment
 
     def get_success_url(self):
-        return reverse("article_view", kwargs={"pk": self.object.article.pk})
+        return reverse("webapp:article_view", kwargs={"pk": self.object.article.pk})
 
 
 class DeleteComment(DeleteView):
@@ -36,4 +36,4 @@ class DeleteComment(DeleteView):
         return super().delete(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse("article_view", kwargs={"pk": self.object.article.pk})
+        return reverse("webapp:article_view", kwargs={"pk": self.object.article.pk})

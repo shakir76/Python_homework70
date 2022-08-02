@@ -63,7 +63,7 @@ class CreateArticle(CreateView):
         article = form.save(commit=False)
         article.save()
         form.save_m2m()
-        return redirect("article_view", pk=article.pk)
+        return redirect("webapp:article_view", pk=article.pk)
 
 
 class UpdateArticle(UpdateView):
@@ -75,7 +75,7 @@ class UpdateArticle(UpdateView):
 class DeleteArticle(DeleteView):
     model = Article
     template_name = "articles/delete.html"
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('webapp:index')
     form_class = ArticleDeleteForm
 
     def post(self, request, *args, **kwargs):

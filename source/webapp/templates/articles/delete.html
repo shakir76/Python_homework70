@@ -7,6 +7,6 @@
         {% csrf_token %}
         {% include "partial/form.html" with button_text="Удалить" %}
     </form>
-    <a href="{% url "article_view" article.pk %}">Назад</a>
+    <a href="{% url "webapp:article_view" article.pk %}">Назад</a>
 {% endblock %}
 

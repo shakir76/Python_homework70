@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 {% block nav %}
     <li class="nav-item">
-        <a class="nav-link" href="{% url "create_article" %}">Создание статьи</a>
+        <a class="nav-link" href="{% url "webapp:create_article" %}">Создание статьи</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{% url "update_article" article.pk %}">Редактировать</a>
+        <a class="nav-link" href="{% url "webapp:update_article" article.pk %}">Редактировать</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{% url "article_comment_create" article.pk %}">Добавить коммент</a>
+        <a class="nav-link" href="{% url "webapp:article_comment_create" article.pk %}">Добавить коммент</a>
     </li>
 
     <li class="nav-item">
-        <a class="nav-link" href="{% url "delete_article" article.pk %}">Удалить</a>
+        <a class="nav-link" href="{% url "webapp:delete_article" article.pk %}">Удалить</a>
     </li>
 {% endblock %}
 
@@ -32,8 +32,8 @@
                         <p class="card-text">{{ comment.text }}</p>
                     </div>
                     <div class="btn-group w-100" role="group" aria-label="Basic mixed styles example">
-                        <a class="btn btn-danger" href="{% url "update_comment" comment.pk %}">Изменить</a>
-                        <a class="btn btn-warning" href="{% url "delete_comment" comment.pk %}">Удалить</a>
+                        <a class="btn btn-danger" href="{% url "webapp:update_comment" comment.pk %}">Изменить</a>
+                        <a class="btn btn-warning" href="{% url "webapp:delete_comment" comment.pk %}">Удалить</a>
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@
     {% empty %}
         <p>Тэгов нет</p>
     {% endfor %}
-    <a href="{% url "index" %}">На главную</a>
+    <a href="{% url "webapp:index" %}">На главную</a>
 
     <div class="modal fade" id="articleDeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
@@ -62,7 +62,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <form action="{% url "delete_article" article.pk %}" method="post">
+                    <form action="{% url "webapp:update_article" article.pk %}" method="post">
                         {% csrf_token %}
                         <button type="submit">Да</button>
                     </form>
