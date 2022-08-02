@@ -15,7 +15,7 @@ class IndexView(ListView):
     template_name = "articles/index.html"
     context_object_name = "articles"
     ordering = "-updated_at"
-    paginate_by = 5
+    paginate_by = 6
 
     def get(self, request, *args, **kwargs):
         self.form = self.get_search_form()
@@ -70,11 +70,6 @@ class UpdateArticle(UpdateView):
     form_class = ArticleForm
     template_name = "articles/update.html"
     model = Article
-
-    def get_form_class(self):
-        if self.request.GET.get("is_admin"):
-            return ArticleForm
-        return UserArticleForm
 
 
 class DeleteArticle(DeleteView):

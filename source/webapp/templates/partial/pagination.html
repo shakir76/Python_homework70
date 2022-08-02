@@ -1,4 +1,4 @@
-<ul class="pagination mt-3">
+<ul class="pagination mt-3 justify-content-center">
     <li class="page-item">
         <a class="page-link" href="?page=1{% if query %}&{{ query }}{% endif %}">Начало</a>
     </li>
@@ -17,17 +17,16 @@
         </li>
     {% endif %}
 
-    <li class="page-item active" aria-current="page">
+    <li class="page-item">
         <form method="get">
             <label for="page">
-                <input class="form-control" type="text" name="page" id="page" value="{{ page_obj.number }}">
+                <input class="form-control rounded-0" type="text" name="page" id="page" value="{{ page_obj.number }}">
             </label>
             {% if  search%}
             <label>
                 <input class="form-control" hidden type="text" name="search" value="{{ search }}">
             </label>
             {% endif %}
-            <button type="submit">Перейти</button>
         </form>
     </li>
 
