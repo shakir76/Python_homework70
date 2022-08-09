@@ -13,7 +13,7 @@ class UserArticleForm(forms.ModelForm):
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ["title", "author", "content", "tags"]
+        fields = ["title", "content", "tags"]
         widgets = {
             "tags": widgets.CheckboxSelectMultiple,
             "content": widgets.Textarea(attrs={"placeholder": "введите контент"})
@@ -32,7 +32,7 @@ class SearchForm(forms.Form):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ["text", "author"]
+        fields = ["text"]
 
 
 class ArticleDeleteForm(forms.ModelForm):

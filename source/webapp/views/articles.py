@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 
 # Create your views here.
@@ -19,6 +19,7 @@ class IndexView(ListView):
     paginate_by = 6
 
     def get(self, request, *args, **kwargs):
+
         self.form = self.get_search_form()
         self.search_value = self.get_search_value()
         return super().get(request, *args, **kwargs)
@@ -56,14 +57,19 @@ class ArticleView(DetailView):
         return context
 
 
-class CreateArticle(LoginRequiredMixin, CreateView):
+class CreateArticle(CreateView):
     form_class = ArticleForm
     template_name = "articles/create.html"
 
-    # def dispatch(self, request, *args, **kwargs):
-    #     if request.user.is_authenticated:
-    #         return super().dispatch(request, *args, **kwargs)
-    #     return redirect("accounts:login")
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and self.request.user.has_perm("webapp.add_article"):
+            return super().dispatch(request, *args, **kwargs)
+        return redirect("accounts:login")
+
+    def form_valid(self, form):
+        user = self.request.user
+        form.instance.author = user
+        return super().form_valid(form)
 
 
 class UpdateArticle(UpdateView):

@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 
 # Create your models here.
@@ -15,14 +16,14 @@ class BaseModel(models.Model):
 
 
 class Article(BaseModel):
-    title = models.CharField(max_length=50, null=False, blank=False,
-                             verbose_name="Заголовок", validators=[validate_title])
-    author = models.CharField(max_length=50, verbose_name="Автор", default="Unknown")
+    title = models.CharField(max_length=50, null=False, blank=False, verbose_name="Заголовок")
     content = models.TextField(max_length=3000, verbose_name="Контент")
     tags = models.ManyToManyField("webapp.Tag", related_name="articles", blank=True)
+    author = models.ForeignKey(get_user_model(), related_name="articles", verbose_name="Автор", default=1,
+                               on_delete=models.SET_DEFAULT)
 
     def __str__(self):
-        return f"{self.id}. {self.title}: {self.author}"
+        return f"{self.id}. {self.title}: {self.author.username}"
 
     def get_absolute_url(self):
         return reverse("webapp:article_view", kwargs={"pk": self.pk})
@@ -38,12 +39,11 @@ class Article(BaseModel):
 
 class Comment(BaseModel):
     text = models.TextField(max_length=400, verbose_name='Комментарий')
-    author = models.CharField(max_length=40, null=True, blank=True, default='Аноним', verbose_name='Автор')
-    article = models.ForeignKey("webapp.Article", on_delete=models.CASCADE, related_name="comments",
-                                verbose_name='Статья')
-
+    author = models.ForeignKey(get_user_model(), related_name="comments", verbose_name="Автор", default=1,
+                               on_delete=models.SET_DEFAULT)
+    article = models.ForeignKey("webapp.Article", on_delete=models.CASCADE, related_name="comments", verbose_name="Статья")
     def __str__(self):
-        return f"{self.id}. {self.text}: {self.author}"
+        return f"{self.id}. {self.text}: {self.author.username}"
 
     class Meta:
         db_table = "comments"
