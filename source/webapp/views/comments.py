@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views.generic import CreateView, UpdateView, DeleteView
@@ -21,10 +22,14 @@ class CreateCommentView(CreateView):
         return reverse("webapp:article_view", kwargs={"pk": self.object.article.pk})
 
 
-class UpdateComment(UpdateView):
+class UpdateComment(UserPassesTestMixin, UpdateView):
     form_class = CommentForm
     template_name = "comments/update.html"
     model = Comment
+
+    def test_func(self):
+        return self.get_object().author == self.request.user or\
+               self.request.user.has_perm('webapp.change_comment')
 
     def get_success_url(self):
         return reverse("webapp:article_view", kwargs={"pk": self.object.article.pk})

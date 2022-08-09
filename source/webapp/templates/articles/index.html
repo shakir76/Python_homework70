@@ -2,7 +2,7 @@
 {% load static %}
 {% block nav %}
 
-    {% if request.user.is_authenticated and perms.webapp.add_article %}
+    {% if perms.webapp.add_article %}
         <li class="nav-item">
             <a class="nav-link" href="{% url "webapp:create_article" %}">Создание статьи</a>
         </li>

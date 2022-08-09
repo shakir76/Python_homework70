@@ -1,4 +1,5 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.models import Permission
 from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -19,7 +20,9 @@ class IndexView(ListView):
     paginate_by = 6
 
     def get(self, request, *args, **kwargs):
-
+        # print(request.user.user_permissions.all())
+        # request.user.user_permissions.add(Permission.objects.get(codename="delete_article"))
+        # print(request.user.user_permissions.all())
         self.form = self.get_search_form()
         self.search_value = self.get_search_value()
         return super().get(request, *args, **kwargs)
@@ -27,8 +30,9 @@ class IndexView(ListView):
     def get_queryset(self):
         if self.search_value:
             return Article.objects.filter(
-                Q(author__icontains=self.search_value) | Q(title__icontains=self.search_value))
-        return Article.objects.all()
+                Q(author__icontains=self.search_value) |
+                Q(title__icontains=self.search_value)).order_by("-updated_at")
+        return Article.objects.all().order_by("-updated_at")
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
@@ -57,14 +61,14 @@ class ArticleView(DetailView):
         return context
 
 
-class CreateArticle(CreateView):
+class CreateArticle(LoginRequiredMixin, CreateView):
     form_class = ArticleForm
     template_name = "articles/create.html"
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated and self.request.user.has_perm("webapp.add_article"):
-            return super().dispatch(request, *args, **kwargs)
-        return redirect("accounts:login")
+    # def dispatch(self, request, *args, **kwargs):
+    #     if request.user.is_authenticated and self.request.user.has_perm("webapp.add_article"):
+    #         return super().dispatch(request, *args, **kwargs)
+    #     return redirect("accounts:login")
 
     def form_valid(self, form):
         user = self.request.user
@@ -72,17 +76,28 @@ class CreateArticle(CreateView):
         return super().form_valid(form)
 
 
-class UpdateArticle(UpdateView):
+class UpdateArticle(PermissionRequiredMixin, UpdateView):
     form_class = ArticleForm
     template_name = "articles/update.html"
     model = Article
 
+    def has_permission(self):
+        return self.request.user.has_perm("webapp.change_article") or \
+               self.request.user == self.get_object().author
 
-class DeleteArticle(DeleteView):
+
+class DeleteArticle(PermissionRequiredMixin, DeleteView):
     model = Article
     template_name = "articles/delete.html"
     success_url = reverse_lazy('webapp:index')
     form_class = ArticleDeleteForm
+    permission_required = "webapp.delete_article"
+
+    def has_permission(self):
+        return super().has_permission() or self.request.user == self.get_object().author
+
+        # return self.request.user.is_superuser or \
+        #        self.request.user.groups.filter(name__in=("Модераторы",)).exists()
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(data=request.POST, instance=self.get_object())
