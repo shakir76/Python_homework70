@@ -20,8 +20,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                {% block nav %}
+            <ul class="navbar-nav mt-3">
+                {% block nav%}
                 {% endblock %}
                 {% if request.user.is_authenticated %}
                     <li class="nav-item">
