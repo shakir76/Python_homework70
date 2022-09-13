@@ -10,7 +10,7 @@
                 </div>
                 <a href="{{ article.get_absolute_url }}" class="card-link btn btn-primary">Подробнее</a>
                 {% if request.user.is_authenticated %}
-                    <button class="news" data-new="{% url 'webapp:add_like' article.pk %}">Лайк</button>
+                    <button class="btn  btn-success news" data-new="{% url 'webapp:add_like' article.pk %}">Лайк</button>
                 {% endif %}
             </div>
         </div>
