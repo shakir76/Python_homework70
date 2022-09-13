@@ -5,8 +5,8 @@
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">{{ article.title }}</h5>
-                    <p class="like-count" data-new="{% url 'webapp:add_like' article.pk %}">Счетчик
-                        Лайков: {{ article.user.all.count }}</p>
+                    <p class="like-count" data-new="{% url 'webapp:add_like' article.pk %}">
+                        Лайки: {{ article.user.all.count }}</p>
                 </div>
                 <a href="{{ article.get_absolute_url }}" class="card-link btn btn-primary">Подробнее</a>
                 {% if request.user.is_authenticated %}

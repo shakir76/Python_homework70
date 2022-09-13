@@ -17,7 +17,7 @@ async function buttonOnClick(event) {
     let like = document.getElementsByClassName('like-count')
     for (a of like) {
         if (a.dataset.new === url) {
-            a.innerText = `Счетчик Лайков: ${response.test}`
+            a.innerText = `Лайки: ${response.test}`
         }
     }
     if (response.user === true) {
