@@ -1,199 +1,141 @@
 [
 {
   "model": "webapp.article",
-  "pk": 26,
+  "pk": 1,
   "fields": {
-    "created_at": "2022-07-15T11:48:02.141Z",
-    "updated_at": "2022-07-27T14:23:02.300Z",
-    "title": "РЎС‚Р°С‚СЊСЏ5",
-    "content": "РљРѕРЅС‚РµРЅС‚5",
+    "created_at": "2022-06-21T13:45:49.487Z",
+    "updated_at": "2022-06-21T13:45:49.487Z",
+    "title": "Статья1",
+    "content": "Контент1",
     "author": 1,
-    "tags": []
+    "tags": [],
+    "user": []
   }
 },
 {
   "model": "webapp.article",
-  "pk": 27,
+  "pk": 2,
   "fields": {
-    "created_at": "2022-07-19T14:18:13.448Z",
-    "updated_at": "2022-07-27T14:23:02.301Z",
-    "title": "РЎС‚Р°С‚СЊСЏ6",
-    "content": "РљРѕРЅС‚РµРЅС‚6",
+    "created_at": "2022-06-21T13:50:34.766Z",
+    "updated_at": "2022-06-21T13:50:34.766Z",
+    "title": "Статья2",
+    "content": "Мой контент",
     "author": 1,
-    "tags": []
+    "tags": [],
+    "user": []
   }
 },
 {
   "model": "webapp.article",
-  "pk": 28,
+  "pk": 3,
   "fields": {
-    "created_at": "2022-07-19T14:18:32.797Z",
-    "updated_at": "2022-07-27T14:23:02.303Z",
-    "title": "РЎС‚Р°С‚СЊСЏ7",
-    "content": "РљРѕРЅС‚РµРЅС‚7",
+    "created_at": "2022-06-21T14:21:31.604Z",
+    "updated_at": "2022-06-21T14:21:31.604Z",
+    "title": "Статья1",
+    "content": "мывмыввмы",
     "author": 1,
-    "tags": []
+    "tags": [],
+    "user": []
   }
 },
 {
   "model": "webapp.article",
-  "pk": 29,
+  "pk": 4,
   "fields": {
-    "created_at": "2022-07-19T14:55:51.264Z",
-    "updated_at": "2022-07-27T14:23:02.304Z",
-    "title": "Articl1",
-    "content": "vsdvds",
+    "created_at": "2022-06-21T14:29:09.544Z",
+    "updated_at": "2022-09-12T10:45:36.016Z",
+    "title": "5555==",
+    "content": "mkmk",
     "author": 1,
-    "tags": []
-  }
-},
-{
-  "model": "webapp.article",
-  "pk": 30,
-  "fields": {
-    "created_at": "2022-07-19T14:56:00.771Z",
-    "updated_at": "2022-07-27T14:23:02.304Z",
-    "title": "Articl2",
-    "content": "vdfvfs",
-    "author": 1,
-    "tags": []
-  }
-},
-{
-  "model": "webapp.article",
-  "pk": 31,
-  "fields": {
-    "created_at": "2022-07-19T14:56:40.640Z",
-    "updated_at": "2022-07-27T14:23:02.306Z",
-    "title": "Articl3",
-    "content": "cdscds",
-    "author": 1,
-    "tags": []
-  }
-},
-{
-  "model": "webapp.article",
-  "pk": 32,
-  "fields": {
-    "created_at": "2022-07-22T13:53:09.258Z",
-    "updated_at": "2022-07-27T14:23:02.307Z",
-    "title": "ggggg",
-    "content": "gggggg",
-    "author": 1,
-    "tags": []
-  }
-},
-{
-  "model": "webapp.article",
-  "pk": 35,
-  "fields": {
-    "created_at": "2022-07-22T14:03:20.923Z",
-    "updated_at": "2022-07-27T14:23:02.307Z",
-    "title": "vdsvds",
-    "content": "vdsvdsvds",
-    "author": 1,
-    "tags": []
-  }
-},
-{
-  "model": "webapp.article",
-  "pk": 36,
-  "fields": {
-    "created_at": "2022-07-22T14:04:24.756Z",
-    "updated_at": "2022-07-27T14:23:02.307Z",
-    "title": "gergre",
-    "content": "greger",
-    "author": 1,
-    "tags": []
-  }
-},
-{
-  "model": "webapp.article",
-  "pk": 38,
-  "fields": {
-    "created_at": "2022-07-22T14:58:52.141Z",
-    "updated_at": "2022-07-27T14:23:02.307Z",
-    "title": "gergre",
-    "content": "gregerger",
-    "author": 1,
-    "tags": []
-  }
-},
-{
-  "model": "webapp.article",
-  "pk": 39,
-  "fields": {
-    "created_at": "2022-07-27T14:29:43.824Z",
-    "updated_at": "2022-07-27T14:29:43.824Z",
-    "title": "test article",
-    "content": "dfbdfbfd",
-    "author": 1,
-    "tags": []
-  }
-},
-{
-  "model": "webapp.article",
-  "pk": 42,
-  "fields": {
-    "created_at": "2022-07-27T14:53:32.642Z",
-    "updated_at": "2022-07-27T14:53:32.668Z",
-    "title": "fefewfew",
-    "content": "fwe",
-    "author": 1,
-    "tags": []
-  }
-},
-{
-  "model": "webapp.article",
-  "pk": 43,
-  "fields": {
-    "created_at": "2022-07-27T14:55:18.366Z",
-    "updated_at": "2022-07-27T14:55:18.378Z",
-    "title": "vsdvds",
-    "content": "vds",
-    "author": 1,
-    "tags": []
-  }
-},
-{
-  "model": "webapp.article",
-  "pk": 44,
-  "fields": {
-    "created_at": "2022-08-09T13:46:29.358Z",
-    "updated_at": "2022-08-09T13:46:29.358Z",
-    "title": "cds",
-    "content": "cd",
-    "author": 1,
-    "tags": [
-      7
+    "tags": [],
+    "user": [
+      2
     ]
   }
 },
 {
   "model": "webapp.article",
-  "pk": 45,
+  "pk": 5,
   "fields": {
-    "created_at": "2022-08-09T13:49:02.476Z",
-    "updated_at": "2022-08-09T13:49:02.476Z",
-    "title": "cds",
-    "content": "cd",
+    "created_at": "2022-06-21T14:31:18.116Z",
+    "updated_at": "2022-06-21T14:31:18.116Z",
+    "title": "Статья3",
+    "content": "Какойто контент",
     "author": 1,
-    "tags": [
-      7
+    "tags": [],
+    "user": []
+  }
+},
+{
+  "model": "webapp.article",
+  "pk": 6,
+  "fields": {
+    "created_at": "2022-06-21T14:31:51.578Z",
+    "updated_at": "2022-06-21T14:34:31.942Z",
+    "title": "Тест",
+    "content": "Какойто контент",
+    "author": 1,
+    "tags": [],
+    "user": []
+  }
+},
+{
+  "model": "webapp.article",
+  "pk": 7,
+  "fields": {
+    "created_at": "2022-06-21T14:36:57.080Z",
+    "updated_at": "2022-06-21T14:37:33.218Z",
+    "title": "cacsa",
+    "content": "",
+    "author": 1,
+    "tags": [],
+    "user": []
+  }
+},
+{
+  "model": "webapp.article",
+  "pk": 8,
+  "fields": {
+    "created_at": "2022-06-21T14:51:04.987Z",
+    "updated_at": "2022-06-21T14:51:04.987Z",
+    "title": "('44444444',)",
+    "content": "444",
+    "author": 1,
+    "tags": [],
+    "user": [
+      2
     ]
   }
 },
 {
   "model": "webapp.article",
-  "pk": 46,
+  "pk": 9,
   "fields": {
-    "created_at": "2022-08-09T13:52:53.829Z",
-    "updated_at": "2022-08-09T13:52:53.829Z",
-    "title": "bgfb",
-    "content": "gfgbgfb",
-    "author": 2,
-    "tags": [
-      7
+    "created_at": "2022-06-21T14:51:34.382Z",
+    "updated_at": "2022-06-21T14:51:34.382Z",
+    "title": "5555555555",
+    "content": "8888",
+    "author": 1,
+    "tags": [],
+    "user": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "webapp.article",
+  "pk": 10,
+  "fields": {
+    "created_at": "2022-07-12T13:36:22.021Z",
+    "updated_at": "2022-07-12T13:36:22.021Z",
+    "title": "гавно",
+    "content": "гавнище",
+    "author": 1,
+    "tags": [],
+    "user": [
+      1,
+      2
     ]
   }
 },
@@ -201,38 +143,40 @@
   "model": "webapp.comment",
   "pk": 1,
   "fields": {
-    "created_at": "2022-08-09T15:09:06.630Z",
-    "updated_at": "2022-08-09T15:09:06.630Z",
-    "text": "vrfdvfdvdfvdf",
+    "created_at": "2022-09-12T09:51:26.835Z",
+    "updated_at": "2022-09-12T09:51:26.835Z",
+    "text": "eaaa",
     "author": 1,
-    "article": 46
+    "article": 9,
+    "user": []
   }
 },
 {
-  "model": "webapp.tag",
-  "pk": 7,
+  "model": "webapp.comment",
+  "pk": 2,
   "fields": {
-    "created_at": "2022-07-15T11:46:39.007Z",
-    "updated_at": "2022-07-15T11:46:39.007Z",
-    "name": "РњСѓР·С‹РєР°"
+    "created_at": "2022-09-12T09:51:40.070Z",
+    "updated_at": "2022-09-12T09:51:40.070Z",
+    "text": "ufdjf",
+    "author": 1,
+    "article": 10,
+    "user": [
+      1
+    ]
   }
 },
 {
-  "model": "webapp.tag",
-  "pk": 8,
+  "model": "webapp.comment",
+  "pk": 3,
   "fields": {
-    "created_at": "2022-07-15T11:46:45.652Z",
-    "updated_at": "2022-07-15T11:46:45.653Z",
-    "name": "РЎРїРѕСЂС‚"
-  }
-},
-{
-  "model": "webapp.tag",
-  "pk": 9,
-  "fields": {
-    "created_at": "2022-07-15T11:46:52.245Z",
-    "updated_at": "2022-07-15T11:46:52.245Z",
-    "name": "Р¤РёР»СЊРјС‹"
+    "created_at": "2022-09-13T07:56:20.648Z",
+    "updated_at": "2022-09-13T07:56:20.648Z",
+    "text": "dad",
+    "author": 1,
+    "article": 4,
+    "user": [
+      1
+    ]
   }
 }
 ]
