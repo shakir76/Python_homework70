@@ -1,11 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import Permission
 from django.db.models import Q
+from django.http import JsonResponse, HttpResponseForbidden
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 
 # Create your views here.
 from django.utils.http import urlencode
+from django.views import View
 
 from webapp.forms import ArticleForm, SearchForm, ArticleDeleteForm, UserArticleForm
 from webapp.models import Article
@@ -96,8 +98,8 @@ class DeleteArticle(PermissionRequiredMixin, DeleteView):
     def has_permission(self):
         return super().has_permission() or self.request.user == self.get_object().author
 
-        # return self.request.user.is_superuser or \
-        #        self.request.user.groups.filter(name__in=("Модераторы",)).exists()
+    # return self.request.user.is_superuser or \
+    #        self.request.user.groups.filter(name__in=("Модераторы",)).exists()
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(data=request.POST, instance=self.get_object())
@@ -105,3 +107,16 @@ class DeleteArticle(PermissionRequiredMixin, DeleteView):
             return self.delete(request, *args, **kwargs)
         else:
             return self.get(request, *args, **kwargs)
+
+
+class AddLike(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        article = get_object_or_404(Article, pk=self.kwargs.get('pk'))
+        users = self.request.user
+        if users in article.user.all():
+            article.user.remove(users)
+        else:
+            article.user.add(users)
+        len_user = article.user.all().count()
+        user_at_like = users in article.user.all()
+        return JsonResponse({'test': len_user, 'user': user_at_like})
