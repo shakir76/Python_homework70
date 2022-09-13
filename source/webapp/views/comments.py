@@ -1,6 +1,8 @@
-from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
+from django.views import View
 from django.views.generic import CreateView, UpdateView, DeleteView
 
 from webapp.forms import CommentForm
@@ -28,7 +30,7 @@ class UpdateComment(UserPassesTestMixin, UpdateView):
     model = Comment
 
     def test_func(self):
-        return self.get_object().author == self.request.user or\
+        return self.get_object().author == self.request.user or \
                self.request.user.has_perm('webapp.change_comment')
 
     def get_success_url(self):
@@ -43,3 +45,16 @@ class DeleteComment(DeleteView):
 
     def get_success_url(self):
         return reverse("webapp:article_view", kwargs={"pk": self.object.article.pk})
+
+
+class AddCommentLike(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        comment = get_object_or_404(Comment, pk=self.kwargs.get('pk'))
+        users = self.request.user
+        if users in comment.user.all():
+            comment.user.remove(users)
+        else:
+            comment.user.add(users)
+        len_user = comment.user.all().count()
+        user_at_like = users in comment.user.all()
+        return JsonResponse({'test': len_user, 'user': user_at_like})

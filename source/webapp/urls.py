@@ -2,7 +2,7 @@ from django.urls import path
 from django.views.generic import RedirectView
 
 from webapp.views import IndexView, CreateArticle, ArticleView, UpdateArticle, DeleteArticle, CreateCommentView, \
-    UpdateComment, DeleteComment, AddLike
+    UpdateComment, DeleteComment, AddLike, AddCommentLike
 
 app_name = "webapp"
 
@@ -17,4 +17,5 @@ urlpatterns = [
     path('comments/<int:pk>/update/', UpdateComment.as_view(), name="update_comment"),
     path('comments/<int:pk>/delete/', DeleteComment.as_view(), name="delete_comment"),
     path('article/<int:pk>/like/', AddLike.as_view(), name="add_like"),
+    path('comments/<int:pk>/like/', AddCommentLike.as_view(), name="add_like_comment"),
 ]
